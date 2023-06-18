@@ -42,7 +42,7 @@ def home():
     validUser = None
     tickets = []
     selected_ticket = []
-    if session and session.get('username'):
+    if session and session['username']:
         validUser = session['username']
         orders = Orders.query.all()
         if orders:
@@ -57,15 +57,6 @@ def home():
         validUser = session['admin_username']
         return render_template('home.html', admin_name=validUser)
     return render_template('home.html')
-
-    # if session and session.get('username'):
-    #     tickets = []
-    #     validUser = session['username']
-    #     for i in range(1,101):
-    #         tickets.append(f"{i:03}")
-    #     return render_template('home.html', username=validUser, tickets=tickets)
-    # return render_template('home.html')
-
 
 # Admin route
 @app.route('/admin')
@@ -237,6 +228,7 @@ def reupdate(oid):
     return redirect('/')  
 
 
+#Review
 @app.route('/check/<int:checkid>',methods=['GET','POST'])
 def check(checkid):
     if session and session['username']:
@@ -251,6 +243,7 @@ def check(checkid):
             return render_template('order.html',username = validate_user, checking=data.verify, data = data, pending_tickets= pending_tickets, price = price,total_price = total_price, oid = orderId)
     return render_template('check.html',checking = data.verify)
 
+
 #Show payment image
 @app.route('/image/<int:id>')
 def image(id):
@@ -259,7 +252,7 @@ def image(id):
     img = base64.b64encode(img).decode('utf-8')
     return render_template('image.html', image_data = img)
 
-
+#User Profile
 @app.route('/userprofile')
 def userprofile():
     if session and session['username']:
@@ -271,8 +264,8 @@ def userprofile():
             tem = o.__dict__
             tem['price'] = len(tem['tickets'].split(',')) * price
             orders.append(tem)
-        return render_template('userprofile.html', orders=orders)
-    return redirect('/')
+        return render_template('userprofile.html', orders=orders, username= valid_user)
+    return redirect(url_for('home'))
 
 #Main
 if __name__ == '__main__':

@@ -31,15 +31,10 @@
                     <p class="px-3"><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('register')}}>Register</a></p>
                 {% elif admin_name %}
                     <p ><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('adminlogout')}}>Logout</a></p>
-                {% elif username %}
-                    <p class="px-3"><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('home')}}>Home</a></p>
-                    <p class="px-2" ><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('logout')}}>Logout</a></p>
-                    <p ><a class=" btn btn-primary text-decoration-none border rounded-pill" href={{url_for('userprofile')}}><i class="fas fa-user"></i>{{username}}</a></p>
-
                 {% else %}
+                    <p class="px-2" ><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('logout')}}>Logout</a></p>
                     <p class="px-3"><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('home')}}>Home</a></p>
-                    <p ><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('login')}}>Login</a></p>
-                    <p class="px-3"><a class=" btn btn-outline-primary text-decoration-none" href={{url_for('register')}}>Register</a></p>
+                    <p ><a class=" btn btn-primary text-decoration-none border rounded-pill" href={{url_for('userprofile')}}><i class="fas fa-user"></i>{{username}}</a></p>
                 {% endif %}
             </div>   
             </div>
