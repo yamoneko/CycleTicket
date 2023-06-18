@@ -1,0 +1,18 @@
+{% extends 'layout/layout.html' %}
+{% block content %}
+    <div class="container text-center">
+        <div class="row ">
+            {% if not checking %}
+                <button class="btn btn-primary">
+                <span class="spinner-border spinner-border-sm"></span>
+                <h5>Checking Your Payment....</h5>
+              </button>
+            {% elif checking == 'Accepted' %}
+            <div class="col-6 offset-md-3 mt-5 ">
+                <i class="fa-solid fa-check"></i>
+                <h6>Payment Successful</h6>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

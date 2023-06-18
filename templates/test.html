@@ -1,0 +1,63 @@
+{% extends 'layout/layout.html' %}
+{% block content %}
+        <div class="row">
+            <div class="col-9 offset-1">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Order_Id</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Tickets</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {%for order in orders %}
+                      <tr>
+                        <th scope="row">{{order.id}}</th>
+                        <td>{{order.user_name}}</td>
+                        <td>{{order.tickets}}</td>
+                        <td>
+                            <div class="p-3" style="background-color: #ded9ca;">
+                              {% if order.image and order.payment_info %}
+                                <pre>Transaction Id - {{order.payment_info["Transaction Id"]}}</pre>
+                                <pre> Date- {{order.payment_info["Date"]}}</pre>
+                                <pre> Transfer To - {{order.payment_info["Name"]}}</pre>
+                                <pre> Phone - {{order.payment_info["Phone"]}}</pre>
+                                <pre> Amount - {{order.payment_info["Amount"]}}</pre>
+                                <div>
+                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    View image
+                                  </button>
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Show payment image</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="background-color: #ded9ca;">
+                                          <img src="data:image/jpeg;base64,{{order.image}}" alt="Image" style="width: 250px; height: 430px;" >
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {% else %}
+                                <pre>-</pre>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>-</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div> 
+{% endblock %}

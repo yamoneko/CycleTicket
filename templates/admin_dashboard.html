@@ -1,0 +1,110 @@
+{% extends 'layout/layout.html' %}
+{% block content %}
+        <div class="row">
+            <div class="col-10 offset-1">
+              {% if order_pending %}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Order_Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Tickets</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {%for order in order_pending%}
+                  <tr>
+                    <th scope="row">{{order.id}}</th>
+                    <td>{{order.user_name}}</td>
+                    <td>{{order.tickets}}</td>
+                    <td>
+                      <div class="p-3" style="background-color: azure;">
+                        {% if order.image  and order.payment_info %}
+                          <pre>Transation Id - {{order.payment_info['Transaction Id']}}</pre>
+                          <pre>Date - {{order.payment_info['Date']}}</pre>
+                          <pre>Transfer To - {{order.payment_info['Name']}}</pre>
+                          <pre>Phone - {{order.payment_info['Phone']}}</pre>
+                          <pre>Amount - {{order.payment_info['Amount']}}</pre>
+                      {% else %}
+                        -
+                      {% endif %}
+                      </div>
+                    </td>
+                    <td>
+                        <div class="btn-sm"><a href={{url_for('admin_accept', orderid = order.id)}}>Accept</a></div>
+                        <div class="btn-sm"><a href={{url_for('admin_reject', orderid = order.id)}}>Reject</a></div>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              {% endif %}
+              <h3 class="text-center mt-5 mb-3">View Orders</h3>
+              {% if order_tickets %}
+                <table class="table" style="background-color:lightgrey;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Order_Id</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Tickets</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {%for order in order_tickets%}
+                      <tr>
+                        <th scope="row">{{order.id}}</th>
+                        <td>{{order.user_name}}</td>
+                        <td>{{order.tickets}}</td>
+                        <td>
+                            <div class="p-3" style="background-color: azure;">
+                              {% if order.image  and order.payment_info %}
+                                <pre>Transation Id - {{order.payment_info['Transaction Id']}}</pre>
+                                <pre>Date - {{order.payment_info['Date']}}</pre>
+                                <pre>Transfer To - {{order.payment_info['Name']}}</pre>
+                                <pre>Phone - {{order.payment_info['Phone']}}</pre>
+                                <pre>Amount - {{order.payment_info['Amount']}}</pre>
+                                <!-- Button trigger modal -->
+                                <div class="row text_center">
+                                  <div class="col-4 offset-md-4">
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                      View
+                                    </button>
+                                  </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Payment Image</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body text-center">
+                                            <img src="data:image/jpeg;base64,{{order.image}}" alt="Image" style="width: 400px; height:600px">
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                              -
+                            {% endif %}
+                        </td>
+                        <td>{{order.verify}}</td>
+                      </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                  </table>
+                {% endif %}
+                
+            </div>
+        </div> 
+{% endblock %}

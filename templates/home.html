@@ -1,0 +1,38 @@
+{% extends "layout/layout.html" %}
+{%block content%}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center">
+            <h1>Cycle Ticket</h1>
+            <h2>Choose Cycle Ticket</h2>
+            {%if username %}
+            <form action="/ticket_orders" method="POST">
+                <div class="container">
+                    <div class="row">
+                        {% for t_id in tickets %}
+                        <div class="col-3">
+                            <div class="form-check">
+                                {% if t_id in selected_ticket %}
+                                <input class="form-check-input btn btn-outline-primary" type="checkbox" value={{t_id}} name="ticket[]" id="check-{{t_id}}" disabled>
+                                <label class="form-check-label text-danger" for="check-{{t_id}}">Ticket - {{t_id}}</label>
+                                {% else %}
+                                <input class="form-check-input btn btn-outline-primary" type="checkbox" value={{t_id}} name="ticket[]" id="check-{{t_id}}" >
+                                <label class="form-check-label" for="check-{{t_id}}">Ticket - {{t_id}}</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div>
+                            <button class="btn btn-primary mt-5" type="submit">Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <div></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{%endblock%}
+
